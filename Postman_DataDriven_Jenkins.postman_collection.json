@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "2a0563e0-a701-4736-96e9-276cc89d6e20",
+		"name": "Postman_DataDriven_Jenkins",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register_Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b992fbde-06e2-46dc-ba25-2c409ad36909",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verify String\", function () {\r",
+							"    const response = pm.response.json();    \r",
+							"    pm.expect(response.json.name).to.eql(pm.iterationData.get(\"name\"));\r",
+							"    pm.expect(response.json.email).to.eql(pm.iterationData.get(\"email\"));\r",
+							"    pm.expect(response.json.age).to.eql(pm.iterationData.get(\"age\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"email\": \"{{email}}\",\r\n    \"age\":{{age}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://httpbin.org/post\n",
+					"protocol": "http",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"post\n"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
